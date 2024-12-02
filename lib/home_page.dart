@@ -1,7 +1,6 @@
-// TODO Implement this library.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'theme_provider.dart';
+import 'theme_provider.dart'; // Assure-toi que le ThemeProvider est bien importé
 
 class HomePage extends StatelessWidget {
   @override
@@ -10,7 +9,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Dark Mode'),
+        title: Text('Projet mobile '),
         actions: [
           IconButton(
             icon: Icon(
@@ -18,70 +17,44 @@ class HomePage extends StatelessWidget {
                   ? Icons.dark_mode
                   : Icons.light_mode,
             ),
-            onPressed: themeProvider.toggleTheme,
+            onPressed: themeProvider.toggleTheme, // Bascule entre mode clair et sombre
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Bienvenue à Esprit School of Business',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: themeProvider.themeMode == ThemeMode.dark
-                    ? Colors.white
-                    : Colors.black,
+      body: TweenAnimationBuilder(
+        duration: Duration(seconds: 30),
+        tween: ColorTween(
+          begin: themeProvider.primaryColor,
+          end: themeProvider.backgroundColor,
+        ),
+        builder: (context, Color? color, child) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [color!, Colors.black],
               ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigation vers GroupPage
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GroupPage()),
-                );
-              },
-              child: Text('Voir les membres du groupe'),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/colorPicker');
+                    },
+                    child: Text('Personnaliser la couleur'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/group');
+                    },
+                    child: Text('Voir les membres du groupe'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class GroupPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final List<String> members = [
-      'Youssef Akchi',
-      'Fatma Felhi',
-      'Chayma Kamel',
-      'Iheb Touaibi',
-      'Wassim Mejri',
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Membres du groupe'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Retour à la page précédente
-          },
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: members.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Icon(Icons.person),
-            title: Text(members[index]),
           );
         },
       ),

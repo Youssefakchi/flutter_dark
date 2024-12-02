@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dark/pages/home_page.dart'; // Import de la page d'accueil
-import 'package:flutter_dark/pages/group_page.dart'; // Import de la page des membres du groupe
+import 'package:flutter_dark/group_page.dart';
+import 'package:flutter_dark/home_page.dart';
 import 'package:provider/provider.dart';
-import 'theme_provider.dart'; // Import du fichier theme_provider.dart
+import 'theme_provider.dart';
+import 'pages/home_page.dart';
+import 'pages/group_page.dart';
+import 'pages/color_picker_page.dart'; // Page pour choisir la couleur
 
 void main() {
   runApp(
@@ -16,17 +19,23 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Récupère le ThemeProvider via le Provider
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
-      themeMode: themeProvider.themeMode, // Applique le mode de thème actuel
-      theme: ThemeData.light(), // Thème clair
-      darkTheme: ThemeData.dark(), // Thème sombre
-      initialRoute: '/', // Route initiale
+      themeMode: themeProvider.themeMode,
+      theme: ThemeData(
+        primaryColor: themeProvider.primaryColor,
+        colorScheme: ColorScheme.light(primary: themeProvider.primaryColor),
+      ),
+      darkTheme: ThemeData(
+        primaryColor: themeProvider.primaryColor,
+        colorScheme: ColorScheme.dark(primary: themeProvider.primaryColor),
+      ),
+      initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(), // Page d'accueil
-        '/group': (context) => GroupPage(), // Page des membres du groupe
+        '/': (context) => HomePage(),
+        '/group': (context) => GroupPage(),
+        '/colorPicker': (context) => ColorPickerPage(),
       },
     );
   }

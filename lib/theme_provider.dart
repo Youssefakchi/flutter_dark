@@ -1,25 +1,27 @@
-// TODO Implement this library.
 import 'package:flutter/material.dart';
-
-final lightTheme = ThemeData(
-  brightness: Brightness.light,
-  primaryColor: Colors.blue,
-  // Autres propriétés pour le thème clair ici
-);
-
-final darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  primaryColor: Colors.indigo,
-  // Autres propriétés pour le thème sombre ici
-);
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
+  Color _primaryColor = Colors.blue;
+  Color _backgroundColor = Colors.white;
 
   ThemeMode get themeMode => _themeMode;
+  Color get primaryColor => _primaryColor;
+  Color get backgroundColor => _backgroundColor;
 
   void toggleTheme() {
-    _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    if (_themeMode == ThemeMode.light) {
+      _themeMode = ThemeMode.dark;
+      _backgroundColor = Colors.black; // Couleur de fond pour le mode sombre
+    } else {
+      _themeMode = ThemeMode.light;
+      _backgroundColor = Colors.white; // Couleur de fond pour le mode clair
+    }
+    notifyListeners();
+  }
+
+  void changePrimaryColor(Color color) {
+    _primaryColor = color;
     notifyListeners();
   }
 }

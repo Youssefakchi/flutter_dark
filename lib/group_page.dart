@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class GroupPage extends StatelessWidget {
-  final List<Map<String, String>> members = [
-    {'name': 'Youssef Akchi', 'image': 'assets/youssef.png'},
-    {'name': 'Fatma Felhi', 'image': 'assets/fatma.png'},
-    {'name': 'Iheb Touaibi', 'image': 'assets/iheb.png'},
+  // Liste des membres avec uniquement les noms
+  final List<String> members = [
+    'Youssef Akchi',
+    'Fatma Felhi',
+    'Iheb Touaibi',
+    'Wassim Mejri',
+    'Chayma Kamel',
   ];
 
   @override
@@ -22,21 +25,12 @@ class GroupPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: members.length,
         itemBuilder: (context, index) {
-          final member = members[index];
           return ListTile(
-            leading: CircleAvatar(
-            radius: 64,
-            backgroundImage: AssetImage(member['image']!),
-            onBackgroundImageError: (exception, stackTrace) {
-            print("Error loading image: ${member['image']}");
-  },
-),
-
-            title: Text(member['name']!), // Affichage du nom du membre
+            leading: Icon(Icons.person), // Affichage de l'icône à la place de l'image
+            title: Text(members[index]), // Affichage du nom du membre
           );
         },
       ),
     );
   }
 }
-
