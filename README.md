@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # flutter_dark
 
 A new Flutter project.
@@ -18,3 +19,6 @@ samples, guidance on mobile development, and a full API reference.
 =======
 # flutter_dark
 >>>>>>> 81895d43f5b0fd351d219c1a2b8aceab3b58dcc3
+=======
+# flutter_dark
+>>>>>>> 00a0d0c7cb64926ed1d32a5c88e132d00071d853
